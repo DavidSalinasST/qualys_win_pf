@@ -9,9 +9,9 @@
       netdom.exe join $env:computername /domain:david.local /UserD:david.local\administrator /ou:OU=altaservidores,DC=david,DC=local /PasswordD:Jerico.4878
     register: task_result
   - name: Reboot immediately if there was a change.
-    shell: "sleep 5 && reboot"
-    async: 1
-    poll: 0
+    win_shell: |
+      Start-Sleep -Seconds 5
+      Restart-Computer
     when: task_result is changed
   - name: Wait for the reboot to complete if there was a change.
     wait_for_connection:
