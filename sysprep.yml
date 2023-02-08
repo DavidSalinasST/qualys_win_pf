@@ -4,14 +4,20 @@
   become: false
   gather_facts: false
   tasks:
-  - name: Copy file unattend   
-    win_copy:
-      src: unattend.xml
-      dest: C:\Temp\
-  - name: Run sysprep
+  - name: Join AD
     win_shell: |
-      cd C:\Windows\System32\Sysprep
-      .\sysprep.exe /generalize /quiet /oobe /unattend:"C:/Temp/unattend.xml" /reboot
-    register: task_result  
-    ignore_errors: yes
+      netdom.exe join $env:computername /domain:david.local /UserD:david.local\administrator /ou:OU=altaservidores,DC=david,DC=local /PasswordD:Jerico.4878
+    register: task_result
+  - name: Reboot immediately if there was a change.
+    shell: "sleep 5 && reboot"
+    async: 1
+    poll: 0
+    when: task_result is changed
+  - name: Wait for the reboot to complete if there was a change.
+    wait_for_connection:
+      connect_timeout: 20
+      sleep: 5
+      delay: 5
+      timeout: 300
+    when: task_result is changed  
   
