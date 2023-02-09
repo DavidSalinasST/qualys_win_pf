@@ -5,7 +5,7 @@
   gather_facts: false
   tasks:
   - name: Set Windows description only
-    win_computer_description:
+    community.windows.win_computer_description:
       description: Una descripcion de Prueba
     register: task_result  
   
