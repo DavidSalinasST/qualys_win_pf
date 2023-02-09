@@ -7,7 +7,8 @@
   - community.windows
   tasks:
   - name: Set Windows description only
-    win_computer_description:
-     description: This is my Windows machine
-    register: result
+    win_shell: |
+      $OSWMI=Get-WmiObject -class Win32_OperatingSystem
+      $OSWMI.Description="My Server 2"
+      $OSWMI.put()
   
