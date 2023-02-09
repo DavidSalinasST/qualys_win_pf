@@ -3,9 +3,11 @@
   hosts: win
   become: false
   gather_facts: false
+  collections:
+    - community.windows
   tasks:
   - name: Set Windows description only
-    community.windows.win_computer_description:
+    win_computer_description:
       description: Una descripcion de Prueba
     register: task_result
   
