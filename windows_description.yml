@@ -7,7 +7,7 @@
     - community.windows
   tasks:
   - name: Set Windows description only
-    win_computer_description:
-      description: Una descripcion de Prueba
-    register: task_result
+    community.windows.win_computer_description:
+     description: This is my Windows machine
+    register: result
   
