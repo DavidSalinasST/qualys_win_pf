@@ -4,10 +4,10 @@
   become: false
   gather_facts: false
   collections:
-    - community.windows
+  - community.windows
   tasks:
   - name: Set Windows description only
-    community.windows.win_computer_description:
+    win_computer_description:
      description: This is my Windows machine
     register: result
   
