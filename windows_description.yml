@@ -5,6 +5,7 @@
   gather_facts: false
   tasks:
   - name: Set Windows description only
-    win_shell: |
-      $value = Test-Path -Path C:\temporal
+    win_computer_description:
+      description: Una descripcion de Prueba
+    register: task_result
   
