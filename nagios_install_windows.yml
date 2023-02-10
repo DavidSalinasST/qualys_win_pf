@@ -11,7 +11,7 @@
   - name: Install Nagios agent
     win_shell: |
       cd C:\Temp
-      ".\ncpa-2.4.0.exe /S /TOKEN='tivit' /IP='0.0.0.0' /PORT='5693' /NRDPHOSTNAME='NCPA 2' /D='C:\Program Files (x86)\Nagios\NCPA\'"
+      .\ncpa-2.4.0.exe //S //TOKEN='tivit' //IP='0.0.0.0' //PORT='5693' //NRDPHOSTNAME='NCPA 2' //D='C:\Program Files (x86)\Nagios\NCPA\'"
     register: task_result  
   - name: Reboot immediately if there was a change.
     win_shell: |
