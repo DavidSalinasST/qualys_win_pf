@@ -18,7 +18,7 @@
   - name: Reboot immediately if there was a change.
     win_shell: |
       Start-Sleep -Seconds 5
-      Restart-Computer
+      Restart-Computer -Force
     when: task_result is changed
   - name: Wait for the reboot to complete if there was a change.
     wait_for_connection:
