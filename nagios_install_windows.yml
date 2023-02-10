@@ -1,0 +1,28 @@
+---
+- name: Manage Windows
+  hosts: win
+  become: false
+  gather_facts: false
+  tasks:
+  - name: Copy file nagios   
+    win_copy:
+      src: ncpa-2.4.0.exe
+      dest: C:\Temp\
+  - name: Install Nagios agent
+    win_shell: |
+      cd C:\Temp
+      .\ncpa-2.4.0.exe /S /TOKEN='tivit' /IP='0.0.0.0' /PORT='5693' /NRDPHOSTNAME='NCPA 2' /D='C:\Program Files (x86)\Nagios\NCPA\'
+    register: task_result  
+  - name: Reboot immediately if there was a change.
+    win_shell: |
+      Start-Sleep -Seconds 5
+      Restart-Computer
+    when: task_result is changed
+  - name: Wait for the reboot to complete if there was a change.
+    wait_for_connection:
+      connect_timeout: 20
+      sleep: 5
+      delay: 5
+      timeout: 300
+    when: task_result is changed
+  
