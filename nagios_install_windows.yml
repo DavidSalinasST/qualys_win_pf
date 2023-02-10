@@ -4,14 +4,16 @@
   become: false
   gather_facts: false
   tasks:
-  - name: Copy file nagios   
+  - name: Copy file nagios installer  
     win_copy:
       src: ncpa-2.4.0.exe
       dest: C:\Temp\
+  - name: Copy file nagios ps1   
+    win_copy:
+      src: inagios.ps1
+      dest: C:\Temp\    
   - name: Install Nagios agent
-    win_shell: |
-      cd C:\Temp
-      .\ncpa-2.4.0.exe \/S \/TOKEN='tivit' \/IP='0.0.0.0' \/PORT='5693' \/NRDPHOSTNAME='NCPA 2' \/D='C:\Program Files (x86)\Nagios\NCPA\'
+    win_shell: C:\Temp\inagios.ps1 
     register: task_result  
   - name: Reboot immediately if there was a change.
     win_shell: |
@@ -24,5 +26,5 @@
       sleep: 5
       delay: 5
       timeout: 300
-    when: task_result is changed
+    when: task_result is changed   
   
