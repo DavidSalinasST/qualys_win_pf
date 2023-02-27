@@ -8,7 +8,7 @@
     win_copy:
       src: QualysCloudAgent.exe
       dest: C:\Temp\
-  - name: Copy file nagios ps1   
+  - name: Copy file qualys ps1   
     win_copy:
       src: qualys.ps1
       dest: C:\Temp\    
