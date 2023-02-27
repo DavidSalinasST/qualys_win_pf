@@ -4,16 +4,16 @@
   become: false
   gather_facts: false
   tasks:
-  - name: Copy file nagios installer  
+  - name: Copy file QualysCloudAgent installer  
     win_copy:
-      src: ncpa-2.4.0.exe
+      src: QualysCloudAgent.exe
       dest: C:\Temp\
   - name: Copy file nagios ps1   
     win_copy:
-      src: inagios.ps1
+      src: qualys.ps1
       dest: C:\Temp\    
-  - name: Install Nagios agent
-    win_shell: C:\Temp\inagios.ps1 
+  - name: Install QualysCloudAgent
+    win_shell: C:\Temp\qualys.ps1 
     register: task_result  
   - name: Reboot immediately if there was a change.
     win_shell: |
